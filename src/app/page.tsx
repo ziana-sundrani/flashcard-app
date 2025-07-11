@@ -10,10 +10,8 @@ const cards = [card1, card2, card3]
 
 export default function Home() {
   return (
-      //  <Container>
-      //       <FlashcardDeck cards= {cards}/>
-      //       <Typography> Hello </Typography>
-      //   </Container>
-      <div> Hello</div>
+       <Container>
+            <FlashcardDeck cards= {cards}/>
+        </Container>
   );
 }
