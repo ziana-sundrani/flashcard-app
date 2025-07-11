@@ -1,7 +1,6 @@
 import Image from "next/image";
 import {Container, Typography} from '@mui/material'
-import Flashcard from './components/flashcard.jsx'
-import FlashcardDeck from './components/FlashcardDeck.jsx';
+import FlashcardDeck from '../components/FlashcardDeck.jsx';
 
 const card1 = {term: "T1", description: "D1"};
 const card2 = {term: "T2", description: "D2"};

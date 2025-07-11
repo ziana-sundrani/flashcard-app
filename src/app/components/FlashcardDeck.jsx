@@ -1,7 +1,7 @@
 "use client"; 
 import { Card, CardContent, Typography} from '@mui/material';
 import React, {useState} from 'react'; 
-import Flashcard from './flashcard'
+import Flashcard from './Flashcard.jsx'
 
 function FlashcardDeck({cards}) {
     const [index, setIndex] = useState(0); 
@@ -14,8 +14,9 @@ function FlashcardDeck({cards}) {
         hasPrev() ? setIndex(index - 1) : alert("no previous cards"); 
     }
 
+    const addCard = (t, d) => {cards.push({term: t, definition: d})}
+
     if(!cards) {
-        console.log(index)
         return (
             <Flashcard 
             term= "No cards in this deck yet"
@@ -25,11 +26,10 @@ function FlashcardDeck({cards}) {
             />
         )
     } else {
-            console.log(index); 
             return (
             <Flashcard
             term= {cards[index].term}
-            description= {cards[index].description}
+            definition= {cards[index].definition}
             onNext= {handleNext}
             onPrev= {handlePrev}
             />

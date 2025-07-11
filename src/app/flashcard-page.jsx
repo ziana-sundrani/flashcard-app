@@ -1,4 +1,4 @@
-import Flashcard from "../components/Flashcard"
+import Flashcard from "./components/Flashcard"
 import {Card} from '@mui/material'
 
 export const CardPage = () => (
