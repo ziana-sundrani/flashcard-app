@@ -9,15 +9,13 @@ function FlashcardDeck({cards}) {
     const hasPrev = () => index - 1 >= 0;
     const handleNext = () => {
         hasNext() ? setIndex(index + 1) : alert("no more cards in deck");
-        return renderCard();
     }
     const handlePrev = () => {
         hasPrev() ? setIndex(index - 1) : alert("no previous cards"); 
-        return renderCard();
-
     }
 
-    const renderCard = () => { if(!cards) {
+    if(!cards) {
+        console.log(index)
         return (
             <Flashcard 
             term= "No cards in this deck yet"
@@ -26,21 +24,17 @@ function FlashcardDeck({cards}) {
             onPrev= {handlePrev}
             />
         )
-        
     } else {
-        const currCard = cards[index];
-        return (
-        <Flashcard
-        term= {currCard.term}
-        description= {currCard.description}
-        onNext= {handleNext}
-        onPrev= {handlePrev}
-        />
-        ); 
-    }}
-    
-    return renderCard();
-   
+            console.log(index); 
+            return (
+            <Flashcard
+            term= {cards[index].term}
+            description= {cards[index].description}
+            onNext= {handleNext}
+            onPrev= {handlePrev}
+            />
+            ); 
+    }
 }
 
 export default FlashcardDeck;

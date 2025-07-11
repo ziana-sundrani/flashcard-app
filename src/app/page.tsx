@@ -1,5 +1,5 @@
 import Image from "next/image";
-import {Container} from '@mui/material'
+import {Container, Typography} from '@mui/material'
 import Flashcard from './components/flashcard.jsx'
 import FlashcardDeck from './components/FlashcardDeck.jsx';
 
@@ -10,8 +10,10 @@ const cards = [card1, card2, card3]
 
 export default function Home() {
   return (
-       <Container>
-            <FlashcardDeck cards= {cards}/>
-        </Container>
+      //  <Container>
+      //       <FlashcardDeck cards= {cards}/>
+      //       <Typography> Hello </Typography>
+      //   </Container>
+      <div> Hello</div>
   );
 }
