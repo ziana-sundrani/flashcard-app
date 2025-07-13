@@ -1,3 +1,4 @@
+'use client';
 import Image from "next/image";
 import {Container, Typography} from '@mui/material'
 import FlashcardDeck from '../components/FlashcardDeck.jsx';

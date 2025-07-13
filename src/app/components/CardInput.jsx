@@ -12,15 +12,15 @@ function CreateCard() {
   const router = useRouter() 
 
   const handleAddCard = () => {
-    const newCard = {term, definition}; 
+    const newCard = {term: term, definition: definition}; 
     setCards(prev => [...prev, newCard]); 
     setTerm('');
     setDefinition('');
-    useEffect(()=> {console.log('Updated cards:', cards)}, [cards]); 
   }
   
   const handleFlashcardMode = () => {
     localStorage.setItem('cards', JSON.stringify(cards));
+    console.log(cards)
     router.push('/flashcards');
 
   }
