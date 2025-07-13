@@ -1,18 +1,28 @@
 "use client"; 
-import {TextField, Box, Container, Button, Stack} from "@mui/material"
+import * as React from 'react'
+import {TextField, Typography, Box, Container, Grid, Card, Button, Stack} from "@mui/material"
 import {useState} from "react"
 import FlashcardDeck from './FlashcardDeck.jsx';
+import {useRouter} from 'next/navigation'
 
 function CreateCard() {
   const [term, setTerm] = useState('');
   const [definition, setDefinition] = useState(''); 
   const [cards, setCards] = useState([]); 
+  const router = useRouter() 
+
   const handleAddCard = () => {
     const newCard = {term, definition}; 
     setCards(prev => [...prev, newCard]); 
     setTerm('');
     setDefinition('');
-    console.log(cards);
+    useEffect(()=> {console.log('Updated cards:', cards)}, [cards]); 
+  }
+  
+  const handleFlashcardMode = () => {
+    localStorage.setItem('cards', JSON.stringify(cards));
+    router.push('/flashcards');
+
   }
 
   return (
@@ -32,8 +42,17 @@ function CreateCard() {
                   margin="normal"/>
       </Stack>
       <Button onClick= {handleAddCard}> Add Card </Button>
-      {cards.length > 0 && <FlashcardDeck cards={cards} />}
-    
+      <Grid spacing= {5}>
+      {
+        cards.map((card, index) => (
+            <Card key={index}>
+            <Typography> Term: {card.term}</Typography>
+            <Typography> Definition: {card.definition}</Typography>
+          </Card>
+        ))
+      }
+      </Grid>
+      <Button onClick= {handleFlashcardMode}> Flash Card Mode </Button>
     </div>
   );
 }
