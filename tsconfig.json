@@ -22,6 +22,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/flashcard-page.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/flashcard-page.jsx", "src/app/components/CardInput.jsx"],
   "exclude": ["node_modules"]
 }

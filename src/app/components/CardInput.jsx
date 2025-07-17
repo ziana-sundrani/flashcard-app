@@ -4,70 +4,47 @@ import {TextField, Typography, Box, Container, Grid, Card, Button, Stack} from "
 import {useState} from "react"
 import FlashcardDeck from './FlashcardDeck.jsx';
 import {useRouter} from 'next/navigation'
+import {IconButton} from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import SaveAsIcon from '@mui/icons-material/SaveAs';
 
-function CreateCard() {
+function CreateCard({count}) {
   const [term, setTerm] = useState('');
   const [definition, setDefinition] = useState(''); 
-  const [cards, setCards] = useState([]); 
-  const router = useRouter() 
-  const [count, setCount] = useState(1);
-
-  const handleAddCard = () => {
-    const newCard = {term: term, definition: definition}; 
-    setCards(prev => [...prev, newCard]); 
-    setTerm('');
-    setDefinition('');
-    setCount(count + 1);
-  }
-  
-  const handleFlashcardMode = () => {
-    localStorage.setItem('cards', JSON.stringify(cards));
-    console.log(cards)
-    router.push('/flashcards');
-
-  }
 
   return (
-    <div>
-      <Stack spacing={{ xs: 2, sm:10}} direction="row">
-        <Container sx={{display: 'flex', flexDirection: 'column', border: "2px solid rgb(0, 0, 0)", p:10, bgcolor: 'secondary'}}>
-          <Box sx={{display: 'flex', alignItems: 'center', gap: 20}}>
-            <Typography variant="h4" component="h3" gutterBottom>
-              {count}
-            </Typography>
-            <DeleteIcon /> 
-          </Box>
-          <Box sx={{display: 'flex', gap: 2}}>
-             <TextField label="Term" 
-                  value={term} 
-                  variant="outlined"
-                  onChange={(t) => setTerm(t.target.value)}
-                  margin="normal"
-                  />
-            <TextField label="Definition" 
-                        value={definition}
-                        variant="outlined" 
-                        maxRows={5}
-                        onChange={(d)=> setDefinition(d.target.value)}
-                        margin="normal"/>
-          </Box>
-        </Container>
+    <Stack spacing={{ xs: 2, sm:10}} direction="row">
+      <Container sx={{ p: 2, border: '1px solid #ccc', borderRadius: 2, mb: 2 }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Typography variant="h6" component="h3">
+            {count}
+          </Typography>
+          <IconButton>
+            <DeleteIcon />
+          </IconButton>
+        </Box>
 
-      </Stack>
-      <Button onClick= {handleAddCard}> Add Card </Button>
-      <Grid spacing= {5}>
-      {
-        cards.map((card, index) => (
-            <Card key={index}>
-            <Typography> Term: {card.term}</Typography>
-            <Typography> Definition: {card.definition}</Typography>
-          </Card>
-        ))
-      }
-      </Grid>
-      <Button onClick= {handleFlashcardMode}> Flash Card Mode </Button>
-    </div>
+        {/* Bottom: Term and Definition side-by-side */}
+        <Box sx={{ display: 'flex', gap: 2, mt: 2 }}>
+          <TextField
+            fullWidth
+            label="Term"
+            value={term}
+            variant="outlined"
+            onChange={(t) => setTerm(t.target.value)}
+            margin="normal"
+          />
+          <TextField
+            fullWidth
+            label="Definition"
+            value={definition}
+            variant="outlined"
+            onChange={(d) => setDefinition(d.target.value)}
+            margin="normal"
+          />
+        </Box>
+      </Container>
+    </Stack>
   );
 }
 
