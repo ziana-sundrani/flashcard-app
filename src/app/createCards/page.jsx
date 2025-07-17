@@ -8,14 +8,16 @@ import { useRouter } from 'next/navigation';
 
 
 export default function CreateCards() {
-  const [count, setCount] = useState(1); 
   const [cards, setCards] = useState([]); 
   const router = useRouter(); 
 
-  const handleAddCard = () => {
-  const newCard = {term: term, definition: definition}; 
-  setCards(prev => [...prev, newCard]); 
-  setCount(count + 1);
+  const handleSaveCard = (term, definition) => {
+    const newCard = {term: term, definition: definition}; 
+    setCards(prev => [...prev, newCard]); 
+  }
+
+  const handleDeleteCard = () => {
+    setCards(prev => prev.filter((_, index) => index !== count - 1));
   }
 
   const handleFlashcardMode = () => {
@@ -29,15 +31,11 @@ return (
        <Grid spacing= {5}>
       {
         cards.map((card, index) => (
-            <Card key={index}>
-            <Typography> Term: {card.term}</Typography>
-            <Typography> Definition: {card.definition}</Typography>
-          </Card>
+            <CardInput key={index} count={cards.length > 0 ? index + 1 : 1} term={card.term} definition={card.definition} onSaveCard={handleSaveCard} onDeleteCard={handleDeleteCard} isSaved={true} />
         ))
       }
       </Grid>
-      <CardInput count={count} />
-      <Button onClick= {handleAddCard}> Add Card </Button>
+    <CardInput count={cards.length > 0 ? cards.length + 1 : 1} onSaveCard={handleSaveCard} onDeleteCard={handleDeleteCard} isSaved={false} />
     <Button onClick= {handleFlashcardMode}> Flash Card Mode </Button>
   </Container>
     

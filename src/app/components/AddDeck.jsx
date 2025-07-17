@@ -8,9 +8,9 @@ function CreateDeck(cards) {
     const router = useRouter(); 
 
     const handleAddCard = () => {
-    const newCard = {term: term, definition: definition}; 
-    setCards(prev => [...prev, newCard]); 
-    setCount(count + 1);
+      const newCard = {term: term, definition: definition}; 
+      setCards(prev => [...prev, newCard]); 
+      setCount(count + 1);
     }
 
     const handleFlashcardMode = () => {
