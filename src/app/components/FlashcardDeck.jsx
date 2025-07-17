@@ -1,7 +1,7 @@
 "use client"; 
 import { Card, CardContent, Typography} from '@mui/material';
 import React, {useState, useEffect} from 'react'; 
-import Flashcard from './Flashcard.jsx'
+import Flashcard from './flashcard/flashcard.jsx'
 
 function FlashcardDeck() {
     const [index, setIndex] = useState(0); 
@@ -31,6 +31,7 @@ function FlashcardDeck() {
             definition= "Please enter card"
             onNext= {handleNext}
             onPrev= {handlePrev}
+            classname="flashcard"
             />
         )
     } else {
@@ -41,13 +42,6 @@ function FlashcardDeck() {
             onNext= {handleNext}
             onPrev= {handlePrev}
             />
-
-            //  <Flashcard 
-            // term= "No cards in this deck yet"
-            // definition= "Please enter card"
-            // onNext= {handleNext}
-            // onPrev= {handlePrev}
-            // />
             ); 
     }
 }

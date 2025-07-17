@@ -1,9 +1,14 @@
+
 import CardInput from './components/CardInput'
-import {Container} from '@mui/material'
+import {Container, Typography} from '@mui/material'
+import Navbar from './components/NavBar'
 export default function Homepage() {
   return (
     <Container sx={{p:10, bgcolor: 'secondary'}}>
-        <CardInput />
+      <Navbar />
+      <Typography>
+        placeholder
+      </Typography>
     </Container>
   );
 }
