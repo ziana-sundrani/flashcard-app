@@ -122,12 +122,13 @@ export default function Homepage() {
 
       {/* Decks Grid */}
       {!loading && decks.length > 0 && (
-        <Grid container spacing={3}>
+        <Grid container spacing={3} sx={{justifyContent: 'center'}}>
           {decks.map((deck) => (
             <Grid item xs={12} sm={6} md={4} key={deck._id}>
               <Card 
                 sx={{ 
                   height: '100%',
+                  width: '250px',
                   cursor: 'pointer',
                   transition: 'transform 0.2s, box-shadow 0.2s',
                   '&:hover': {

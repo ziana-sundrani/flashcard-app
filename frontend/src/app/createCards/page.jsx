@@ -38,9 +38,7 @@ export default function CreateCards() {
     if (response.ok) {
       const savedDeck = await response.json();
       console.log('Deck saved successfully:', savedDeck);
-      // Store the deck for flashcard mode
-      localStorage.setItem('selectedDeck', JSON.stringify(savedDeck));
-      router.push('/flashcards');
+      router.push(`/flashcards?deckID=${savedDeck._id}`);
     } else {
       console.error('Failed to save deck');
       alert('Failed to save deck. Please try again.');

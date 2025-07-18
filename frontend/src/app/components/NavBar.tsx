@@ -53,47 +53,15 @@ function NavBar() {
     <AppBar>
       <Container maxWidth="xl">
         <Toolbar disableGutters sx={{ justifyContent: "space-between" }}>
-          {/* Left: Menu, Logo, and Title */}
+          {/* Left: Logo, and Title */}
           <Box sx={{ display: "flex", alignItems: "center" }}>
-            {/* Menu icon and logic */}
-            <IconButton
-              size="large"
-              aria-label="open menu"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-            <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={activeMenu}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(activeMenu)}
-              onClose={handleCloseNavMenu}
-            >
-            {pages.map((page) => (
-              <MenuItem key={page} onClick={() => handleNavigate(page)}>
-                <Typography textAlign="center">{page}</Typography>
-              </MenuItem>
-              ))}
-            </Menu>
-
-            <StyleIcon sx={{ mr: 1 }} />
+            <StyleIcon sx={{ mr: 1 }}  onClick={() => router.push('/')}/>
             <Typography
               variant="h6"
               noWrap
               component="a"
               href="#"
+              onClick={() => router.push('/')}
               sx={{
                 fontFamily: 'monospace',
                 fontWeight: 700,
@@ -102,7 +70,7 @@ function NavBar() {
                 textDecoration: 'none',
               }}
             >
-              Flashcards
+              GoCard
             </Typography>
           </Box>
 
