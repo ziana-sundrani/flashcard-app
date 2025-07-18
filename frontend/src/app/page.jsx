@@ -1,9 +1,11 @@
 
 "use client"; 
-import {Container, Typography, Grid, Card, CardContent, Box, Button} from '@mui/material'
+import {Container, Typography, Grid, Card, CardContent, Box, Button, IconButton} from '@mui/material'
 import Navbar from './components/NavBar'
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import DeleteIcon from '@mui/icons-material/Delete';
+
 
 export default function Homepage() {
   const [decks, setDecks] = useState([]);
@@ -39,6 +41,29 @@ export default function Homepage() {
     router.push('/createCards');
   };
 
+  const handleGenerateNew = () => {
+    router.push('/generateCards');
+  };
+
+  const handleDelete = async (deck) => {
+    try {
+      const response = await fetch(`http://localhost:3001/api/Decks/${deck._id}`, {
+        method: 'DELETE'
+      });
+
+      if (response.ok) {
+        // Remove the deck from the UI
+        setDecks(prevDecks => prevDecks.filter(d => d._id !== deck._id));
+        console.log('Deck deleted successfully');
+      } else {
+        console.error('Failed to delete deck');
+        alert('Failed to delete deck. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error deleting deck:', error);
+    }
+  }
+
   return (
     <Container sx={{p: 4, bgcolor: 'secondary'}}>
       <Navbar />
@@ -54,14 +79,26 @@ export default function Homepage() {
             : `You have ${decks.length} deck${decks.length !== 1 ? 's' : ''} ready to study.`
           }
         </Typography>
-        <Button 
-          variant="contained" 
-          size="large" 
-          onClick={handleCreateNew}
-          sx={{ mb: 4 }}
-        >
-          Create New Deck
-        </Button>
+        <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center'}}>
+          <Button 
+            variant="contained" 
+            size="large" 
+            onClick={handleCreateNew}
+            sx={{ mb: 4 }}
+          >
+            Create
+          </Button>
+          <Button 
+            variant="contained" 
+            size="large" 
+            onClick={handleGenerateNew}
+            sx={{ mb: 4 }}
+          >
+            Create with AI 
+          </Button>
+
+        </Box>
+        
       </Box>
 
       {/* Loading State */}
@@ -120,6 +157,11 @@ export default function Homepage() {
                     <Typography variant="caption" color="text.secondary" sx={{ ml: 2 }}>
                       Created: {new Date(deck.createdAt).toLocaleDateString()}
                     </Typography>
+                  </Box>
+                  <Box sx={{display: 'flex', justifyContent: 'flex-end'}}>
+                    <IconButton color= 'error' onClick={(event) => {event.stopPropagation(); handleDelete(deck)}}>
+                      <DeleteIcon />
+                    </IconButton>
                   </Box>
                 </CardContent>
               </Card>

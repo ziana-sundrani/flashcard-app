@@ -8,6 +8,7 @@ import AdbIcon from '@mui/icons-material/Adb';
 import AddIcon from '@mui/icons-material/Add';
 import SearchIcon from '@mui/icons-material/Search';
 import StyleIcon from '@mui/icons-material/Style';
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 
 import {useRouter} from 'next/navigation';
 
@@ -126,6 +127,9 @@ function NavBar() {
 
           {/* Right: Create and User Profile */}
           <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+            <IconButton color="inherit" aria-label="add" onClick= {() => router.push('/generateCards')}>
+              <AutoAwesomeIcon />
+            </IconButton>
             <IconButton color="inherit" aria-label="add" onClick= {() => router.push('/createCards')}>
               <AddIcon />
             </IconButton>

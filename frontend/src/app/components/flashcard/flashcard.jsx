@@ -27,8 +27,7 @@ function Flashcard({term, definition}) {
           boxShadow: 6,
           transform: 'translateY(-2px)'
         },
-        backgroundColor: flipped ? 'primary.light' : 'background.paper',
-        border: flipped ? '2px solid' : '1px solid',
+        border: '1px solid',
         borderColor: flipped ? 'primary.main' : 'grey.300'
       }}
     >
@@ -46,8 +45,6 @@ function Flashcard({term, definition}) {
             variant="h4" 
             component="div"
             sx={{ 
-              fontWeight: flipped ? 'normal' : 'bold',
-              color: flipped ? 'primary.contrastText' : 'text.primary',
               lineHeight: 1.2,
               wordBreak: 'break-word'
             }}
@@ -61,7 +58,6 @@ function Flashcard({term, definition}) {
             sx={{ 
               mt: 3, 
               display: 'block',
-              color: flipped ? 'primary.contrastText' : 'text.secondary',
               opacity: 0.7
             }}
           >

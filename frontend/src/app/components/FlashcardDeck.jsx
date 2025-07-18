@@ -38,20 +38,25 @@ function FlashcardDeck(deck) {
 
     if (cards.length === 0) {
         return (
-            <Container sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
-                <Card sx={{ p: 4, textAlign: 'center', minWidth: 400, minHeight: 300, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <CardContent>
-                        <Typography variant="h4" gutterBottom>No cards in this deck yet</Typography>
-                        <Typography variant="body1" color="text.secondary">
-                            Go back to create some flashcards!
-                        </Typography>
-                    </CardContent>
-                </Card>
+            <Container sx={{ py: 4}}>
+                    <IconButton  onClick={() => router.push('/')}>
+                    <Typography> View All Decks </Typography>
+                    <ArrowBackIcon />
+                </IconButton>
+            
+                <Container sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
+                    <Card sx={{ p: 4, textAlign: 'center', minWidth: 400, minHeight: 300, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <CardContent>
+                            <Typography variant="h4" gutterBottom>No cards in this deck yet</Typography>
+                            <Typography variant="body1" color="text.secondary">
+                                Go back to create some flashcards!
+                            </Typography>
+                        </CardContent>
+                    </Card>
+                </Container>
             </Container>
         );
     }
-
-    const validIndex = Math.min(index, cards.length - 1);
 
     return (
         <Container sx={{ py: 4 }}>
@@ -65,7 +70,7 @@ function FlashcardDeck(deck) {
                     {name}
                 </Typography>
                 <Typography variant="body1" color="text.secondary">
-                    Card {validIndex + 1} of {cards.length}
+                    Card {index + 1} of {cards.length}
                 </Typography>
             </Box>
 
@@ -99,8 +104,9 @@ function FlashcardDeck(deck) {
                 {/* Flashcard */}
                 <Box sx={{ flex: '0 0 auto', maxWidth: 600, width: '100%' }}>
                     <Flashcard
-                        term={cards[validIndex].term}
-                        definition={cards[validIndex].definition}
+                        key={index}
+                        term={cards[index].term}
+                        definition={cards[index].definition}
                     />
                 </Box>
 
@@ -134,7 +140,7 @@ function FlashcardDeck(deck) {
                     overflow: 'hidden'
                 }}>
                     <Box sx={{ 
-                        width: `${((validIndex + 1) / cards.length) * 100}%`, 
+                        width: `${((index + 1) / cards.length) * 100}%`, 
                         height: '100%', 
                         backgroundColor: 'primary.main',
                         transition: 'width 0.3s ease'
