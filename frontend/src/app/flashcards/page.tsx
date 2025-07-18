@@ -34,7 +34,7 @@ export default function Deck({ deckName }: DeckProps) {
         </IconButton>
       </Container>
       
-      <FlashcardDeck deckName={deckName} />
+      <FlashcardDeck />
     </Box>
   );
 }

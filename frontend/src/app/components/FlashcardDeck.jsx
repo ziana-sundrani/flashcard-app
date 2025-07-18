@@ -3,22 +3,29 @@ import { Box, IconButton, Typography, Container, Card, CardContent} from '@mui/m
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import React, {useState, useEffect} from 'react'; 
-import Flashcard from './flashcard/flashcard.jsx'
+import Flashcard from './flashcard/flashcard.jsx';
 import { useSearchParams } from 'next/navigation';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { useRouter } from 'next/navigation';
 
 function FlashcardDeck(deck) {
-    const [index, setIndex] = useState(0); 
+    const[index, setIndex] = useState(0); 
     const[cards, setCards] = useState([]);
+    const[name, setName] = useState('');
+    const searchParams = useSearchParams();
+    const deckID = searchParams.get('deckID'); //get deckID from url
+    const router = useRouter();
    
     // Get correct deck from db
     useEffect(() => {
         const getDeck = async () => {
-            const response = await fetch(`http://localhost:3001/api/Decks/${deck._id}`);
+            const response = await fetch(`http://localhost:3001/api/Decks/${deckID}`);
             const data = await response.json();
-            setCards(data.cards);
+            setCards(data.cards || []);
+            setName(data.name || '');
         }
         getDeck();
-    }, cards)
+    }, [deckID])
     
     const hasNext = () => index + 1 < cards.length; 
     const hasPrev = () => index - 1 >= 0;
@@ -28,14 +35,6 @@ function FlashcardDeck(deck) {
     const handlePrev = () => {
         hasPrev() ? setIndex(index - 1) : alert("no previous cards"); 
     }
-
-    // if (loading) {
-    //     return (
-    //         <Container sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
-    //             <Typography variant="h5">Loading flashcards...</Typography>
-    //         </Container>
-    //     );
-    // }
 
     if (cards.length === 0) {
         return (
@@ -57,9 +56,13 @@ function FlashcardDeck(deck) {
     return (
         <Container sx={{ py: 4 }}>
             {/* Deck Title and Progress */}
-            <Box sx={{ textAlign: 'center', mb: 4 }}>
-                <Typography variant="h4" component="h1" gutterBottom>
-                    {deckName}
+            <Box sx={{ textAlign: 'center', mb: 4, display: 'flex', alignItems: 'center'}}>
+                <IconButton sx = {{justifyContent: 'flex-start'}} onClick={() => router.push('/')}>
+                    <Typography> View All Decks </Typography>
+                    <ArrowBackIcon />
+                </IconButton>
+                <Typography variant="h4" component="h1" gutterBottom sx={{flex: 1}}>
+                    {name}
                 </Typography>
                 <Typography variant="body1" color="text.secondary">
                     Card {validIndex + 1} of {cards.length}
