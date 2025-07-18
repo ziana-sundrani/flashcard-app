@@ -1,0 +1,133 @@
+
+"use client"; 
+import {Container, Typography, Grid, Card, CardContent, Box, Button} from '@mui/material'
+import Navbar from './components/NavBar'
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+
+export default function Homepage() {
+  const [decks, setDecks] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const router = useRouter();
+
+  useEffect(() => {
+    const fetchDecks = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/api/Decks');
+        if (response.ok) {
+          const data = await response.json();
+          console.log('Fetched decks:', data);
+          setDecks(data);
+        } else {
+          console.error('Failed to fetch decks');
+        }
+      } catch (error) {
+        console.error('Error fetching decks:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDecks();
+  }, []);
+
+  const handleDeckClick = (deck) => {
+    router.push(`/flashcards?deckID=${deck._id}`);
+  };
+
+  const handleCreateNew = () => {
+    router.push('/createCards');
+  };
+
+  return (
+    <Container sx={{p: 4, bgcolor: 'secondary'}}>
+      <Navbar />
+      
+      {/* Header Section */}
+      <Box sx={{ mt: 10, mb: 4, textAlign: 'center' }}>
+        <Typography variant="h3" component="h1" sx={{ mb: 2, fontWeight: 'bold' }}>
+          My Decks
+        </Typography>
+        <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
+          {decks.length === 0 && !loading
+            ? "You haven't created any flashcard decks yet. Start by creating your first deck!" 
+            : `You have ${decks.length} deck${decks.length !== 1 ? 's' : ''} ready to study.`
+          }
+        </Typography>
+        <Button 
+          variant="contained" 
+          size="large" 
+          onClick={handleCreateNew}
+          sx={{ mb: 4 }}
+        >
+          Create New Deck
+        </Button>
+      </Box>
+
+      {/* Loading State */}
+      {loading && (
+        <Box sx={{ textAlign: 'center', py: 4 }}>
+          <Typography>Loading your decks...</Typography>
+        </Box>
+      )}
+
+      {/* No Decks State */}
+      {!loading && decks.length === 0 && (
+        <Box sx={{ textAlign: 'center', py: 4 }}>
+          <Typography variant="h6" color="text.secondary">
+            No decks found
+          </Typography>
+          <Typography variant="body2" sx={{ mt: 1 }}>
+            Create your first flashcard deck to get started!
+          </Typography>
+        </Box>
+      )}
+
+      {/* Decks Grid */}
+      {!loading && decks.length > 0 && (
+        <Grid container spacing={3}>
+          {decks.map((deck) => (
+            <Grid item xs={12} sm={6} md={4} key={deck._id}>
+              <Card 
+                sx={{ 
+                  height: '100%',
+                  cursor: 'pointer',
+                  transition: 'transform 0.2s, box-shadow 0.2s',
+                  '&:hover': {
+                    transform: 'translateY(-4px)',
+                    boxShadow: 4
+                  }
+                }}
+                onClick={() => handleDeckClick(deck)}
+              >
+                <CardContent sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+                  <Typography variant="h6" component="h2" sx={{ mb: 2, fontWeight: 'bold' }}>
+                    {deck.name}
+                  </Typography>
+                  <Typography 
+                    variant="body2" 
+                    color="text.secondary" 
+                    sx={{ mb: 2, flex: 1 }}
+                  >
+                    {deck.description}
+                  </Typography>
+                  
+                  {/* Deck Stats */}
+                  <Box sx={{ mt: 'auto', pt: 2, borderTop: '1px solid #f0f0f0' }}>
+                    <Typography variant="caption" color="text.secondary">
+                      {deck.cards?.length || 0} card{deck.cards?.length !== 1 ? 's' : ''}
+                    </Typography>
+                    <Typography variant="caption" color="text.secondary" sx={{ ml: 2 }}>
+                      Created: {new Date(deck.createdAt).toLocaleDateString()}
+                    </Typography>
+                  </Box>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      )}
+    </Container>
+  );
+}
+

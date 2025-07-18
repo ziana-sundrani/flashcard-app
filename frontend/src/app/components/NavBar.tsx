@@ -1,0 +1,167 @@
+"use client";
+import * as React from 'react';
+import {
+  AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, Avatar, Button, Tooltip, MenuItem, InputBase
+} from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
+import AdbIcon from '@mui/icons-material/Adb';
+import AddIcon from '@mui/icons-material/Add';
+import SearchIcon from '@mui/icons-material/Search';
+import StyleIcon from '@mui/icons-material/Style';
+
+import {useRouter} from 'next/navigation';
+
+const pages = ['My decks', 'Create New'];
+const settings = ['Profile', 'Account', 'Logout'];
+
+function NavBar() {
+  const [activeMenu, setActiveMenu] = React.useState<null | HTMLElement>(null);
+  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  const router = useRouter(); 
+
+  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setActiveMenu(event.currentTarget);
+  };
+
+  const handleCloseNavMenu = () => {
+    setActiveMenu(null);
+  };
+
+  const handleCreateNew = () => {
+    router.push('/createCards');
+  };
+
+  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElUser(event.currentTarget);
+  };
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+
+  const handleNavigate = (page: string) => {
+    setActiveMenu(null);
+    
+    if (page === 'My decks') {
+      router.push('/');
+    } else if (page === 'Create New') {
+      router.push('/createCards');
+    }
+  };
+
+  return (
+    <AppBar>
+      <Container maxWidth="xl">
+        <Toolbar disableGutters sx={{ justifyContent: "space-between" }}>
+          {/* Left: Menu, Logo, and Title */}
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            {/* Menu icon and logic */}
+            <IconButton
+              size="large"
+              aria-label="open menu"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenNavMenu}
+              color="inherit"
+            >
+            <MenuIcon />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={activeMenu}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(activeMenu)}
+              onClose={handleCloseNavMenu}
+            >
+            {pages.map((page) => (
+              <MenuItem key={page} onClick={() => handleNavigate(page)}>
+                <Typography textAlign="center">{page}</Typography>
+              </MenuItem>
+              ))}
+            </Menu>
+
+            <StyleIcon sx={{ mr: 1 }} />
+            <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              href="#"
+              sx={{
+                fontFamily: 'monospace',
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: 'inherit',
+                textDecoration: 'none',
+              }}
+            >
+              Flashcards
+            </Typography>
+          </Box>
+
+          {/* Center: Search Bar */}
+          <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "center" }}>
+            <Box sx={{
+              display: "flex",
+              alignItems: "center",
+              backgroundColor: "rgba(255,255,255,0.15)",
+              borderRadius: 1,
+              px: 2,
+              width: 300,
+            }}>
+              <SearchIcon sx={{ mr: 1 }} />
+              <InputBase
+                placeholder="Search…"
+                inputProps={{ 'aria-label': 'search' }}
+                sx={{ color: "inherit", width: "100%" }}
+              />
+            </Box>
+          </Box>
+
+          {/* Right: Create and User Profile */}
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+            <IconButton color="inherit" aria-label="add" onClick= {() => router.push('/createCards')}>
+              <AddIcon />
+            </IconButton>
+
+            <Tooltip title="Open settings">
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0}}>
+                <Avatar sx={{objectFit: "contain", border: "2px solid rgb(0, 0, 0)"  }} alt="Pfp" src="https://cdn.freebiesupply.com/logos/large/2x/godaddy-logo-png-transparent.png" />
+              </IconButton>
+            </Tooltip>
+            <Menu
+              sx={{ mt: '45px' }}
+              id="menu-appbar-user"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+            >
+              {settings.map((setting) => (
+                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">{setting}</Typography>
+                </MenuItem>
+              ))}
+            </Menu>
+          </Box>
+        </Toolbar>
+      </Container>
+    </AppBar>
+  );
+}
+
+export default NavBar;
