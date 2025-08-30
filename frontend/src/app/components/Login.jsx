@@ -21,6 +21,8 @@ function Login() {
       });
 
       if (response.ok) {
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('user', JSON.stringify(response.user));
         router.push('/');
       } else {
         alert('Email or password is incorrect. Please try again or sign up for an account');

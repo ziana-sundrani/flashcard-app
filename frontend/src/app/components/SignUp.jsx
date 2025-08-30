@@ -22,6 +22,8 @@ function Signup() {
       });
 
       if (response.ok) {
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('user', JSON.stringify(response.user));
         router.push('/');
       } else {
         alert('Email already registered. Please use a different email or log-in');

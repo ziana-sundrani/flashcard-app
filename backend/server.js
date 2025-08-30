@@ -58,7 +58,14 @@ app.post('/api/registration', async(req, res) => {
     const passwordHash = await bcrypt.hash(password, 12);
 
     await User.create({ username: username, email: email, password: passwordHash });
-    res.status(201).json({ message: "User registered successfully" });
+    const user = await User.findOne({ email });
+    
+    const token = jwt.sign(
+      { sub: user._id.toString(), email: user.email },
+      process.env.JWT_SECRET,
+      { expiresIn: "7d" }
+    );
+    res.status(201).json({ token, user: { id: user._id, name: user.name, email: user.email }, message: "User registered successfully" });
   } catch (err) {
       console.error('Error registering user:', err);
       res.status(500).json({ error: 'Failed to register user' });

@@ -12,13 +12,22 @@ export default function Homepage() {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
+  
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    console.log(token);
+    if (!token) {
+      router.replace('/login');
+    }
+    }, [router]);
+
+
   useEffect(() => {
     const fetchDecks = async () => {
       try {
         const response = await fetch('http://localhost:3001/api/Decks');
         if (response.ok) {
           const data = await response.json();
-          console.log('Fetched decks:', data);
           setDecks(data);
         } else {
           console.error('Failed to fetch decks');

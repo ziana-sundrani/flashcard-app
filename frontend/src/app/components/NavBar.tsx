@@ -3,6 +3,7 @@ import * as React from 'react';
 import {
   AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, Avatar, Button, Tooltip, MenuItem, InputBase
 } from '@mui/material';
+import { useState, useEffect } from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
 import AdbIcon from '@mui/icons-material/Adb';
 import AddIcon from '@mui/icons-material/Add';
@@ -13,24 +14,21 @@ import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import {useRouter} from 'next/navigation';
 
 const pages = ['My decks', 'Create New'];
-const settings = ['Profile', 'Account', 'Logout'];
+const settings = ['Logout'];
 
 function NavBar() {
   const [activeMenu, setActiveMenu] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  const [initial, setInitial] = useState('U');
   const router = useRouter(); 
+  
+  useEffect(() => {
+    const userString = localStorage.getItem('user');
+    const user = userString && userString !== "undefined" ? JSON.parse(userString) : null;
+    const i = user?.email? user.email[0].toUpperCase() : 'U';
+    setInitial(i);
+  }, []);
 
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setActiveMenu(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setActiveMenu(null);
-  };
-
-  const handleCreateNew = () => {
-    router.push('/createCards');
-  };
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
@@ -39,15 +37,11 @@ function NavBar() {
     setAnchorElUser(null);
   };
 
-  const handleNavigate = (page: string) => {
-    setActiveMenu(null);
-    
-    if (page === 'My decks') {
-      router.push('/');
-    } else if (page === 'Create New') {
-      router.push('/createCards');
-    }
-  };
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    router.push('/login');
+  }
 
   return (
     <AppBar>
@@ -104,7 +98,9 @@ function NavBar() {
 
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0}}>
-                <Avatar sx={{objectFit: "contain", border: "2px solid rgb(0, 0, 0)"  }} alt="Pfp" src="https://cdn.freebiesupply.com/logos/large/2x/godaddy-logo-png-transparent.png" />
+                <Avatar sx={{objectFit: "contain", border: "2px solid rgb(0, 0, 0)"  }}>
+                  {initial}
+                </Avatar>
               </IconButton>
             </Tooltip>
             <Menu
@@ -124,7 +120,7 @@ function NavBar() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                <MenuItem key={setting} onClick={handleLogout}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
