@@ -43,7 +43,6 @@ const User = mongoose.model('User', userSchema);
 //routes for managing log-in 
 app.post('/api/registration', async(req, res) => {
   try{
-    console.log("working");
     const { username, email, password } = req.body;
 
     if (!email || !password) {
@@ -116,7 +115,6 @@ function auth(req, res, next) {
 // Routes for managing decks
 app.get('/api/Decks', async (req, res) => {
   try {
-    console.log("test");
     const decks = await Deck.find();
     res.json(decks);
   } catch (error) {

@@ -30,6 +30,6 @@
     ".next/types/**/*.ts",
     "frontend/src/app/flashcard-page.jsx",
     "frontend/src/app/components/CardInput.jsx"
-  ],
+, "src/app/login/page.jsx"  ],
   "exclude": ["node_modules"]
 }
