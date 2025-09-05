@@ -1,0 +1,8 @@
+.flashcard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20;
+  height: 350px;
+  width: 75%;
+}
