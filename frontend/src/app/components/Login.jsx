@@ -12,7 +12,7 @@ function Login() {
     const user = { email, password };
 
     try {
-      const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "/api";
+      const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://flashcard-app-1-34e10aa359c9.herokuapp.com/api";
       const response = await fetch(`${BASE_URL}/login`, {
         method: 'POST',
         headers: {

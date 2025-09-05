@@ -27,7 +27,7 @@ export default function CreateCards() {
   const deck = {name: deckName, description: deckDescription, cards: cards};
   
   try {
-    const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "/api";
+    const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://flashcard-app-1-34e10aa359c9.herokuapp.com/api";
     const response = await fetch(`${BASE_URL}/Decks`, {
       method: 'POST',
       headers: {

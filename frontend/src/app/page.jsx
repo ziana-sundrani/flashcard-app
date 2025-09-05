@@ -25,7 +25,7 @@ export default function Homepage() {
   useEffect(() => {
     const fetchDecks = async () => {
       try {
-        const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "/api";
+        const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://flashcard-app-1-34e10aa359c9.herokuapp.com/api";
         const response = await fetch(`${BASE_URL}/Decks`);
         if (response.ok) {
           const data = await response.json();
@@ -57,7 +57,7 @@ export default function Homepage() {
 
   const handleDelete = async (deck) => {
     try {
-      const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "/api";
+      const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://flashcard-app-1-34e10aa359c9.herokuapp.com/api";
       const response = await fetch(`${BASE_URL}/Decks/${deck._id}`, {
         method: 'DELETE'
       });

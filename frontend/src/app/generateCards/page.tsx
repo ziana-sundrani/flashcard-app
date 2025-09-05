@@ -23,7 +23,7 @@ export default function GenerateCards() {
 
         setLoading(true);
         try {
-            const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "/api";
+            const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://flashcard-app-1-34e10aa359c9.herokuapp.com/api";
             const response = await fetch(`${BASE_URL}/generate-flashcards`, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
@@ -47,7 +47,7 @@ export default function GenerateCards() {
         const deck = {name: name, description: description, cards: cards};
             
         try {
-            const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "/api";
+            const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://flashcard-app-1-34e10aa359c9.herokuapp.com/api";
             const response = await fetch(`${BASE_URL}/Decks`, {
                 method: 'POST',
                 headers: {
