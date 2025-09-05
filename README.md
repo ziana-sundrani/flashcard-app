@@ -4,10 +4,6 @@ I spent about 10-15 hours creating the app and 5 hours on the SPARK application 
 
 Video Demos: https://www.youtube.com/watch?v=fvHH3hQlzs8&ab_channel=Ziana
 
-https://www.youtube.com/watch?v=Dn7cjhJrCvE&ab_channel=Ziana
-
 CLI commands to run: 
-
 cd frontend--> npm run dev
-
 cd backend--> node server.js
