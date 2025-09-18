@@ -2,8 +2,6 @@ Description: This project allows users to create their own flashcard decks and a
 
 Tech Stack: I used MERN (MongoDB, Express.js, React, and Node.js) as well as the Open AI API. 
 
-I spent about 20-25 hours creating the app and 5 hours on the SPARK application (login feature and deployment). 
-
 Video Demo:
 https://youtu.be/NsAgYXTuTNY
 
