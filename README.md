@@ -5,5 +5,20 @@ I spent about 10-15 hours creating the app and 5 hours on the SPARK application 
 Video Demos: https://www.youtube.com/watch?v=fvHH3hQlzs8&ab_channel=Ziana
 
 CLI commands to run: 
-cd frontend--> npm run dev
-cd backend--> node server.js
+
+**Quick Start (Recommended):**
+From the root directory (`flashcard-app/`):
+```bash
+npm run dev
+```
+This will start both the frontend (Next.js) and backend (Express) servers simultaneously.
+
+**Alternative commands:**
+- Install all dependencies: `npm run install:all`
+- Run frontend only: `npm run frontend:dev`
+- Run backend only: `npm run backend:dev`
+- Run backend in dev mode: `npm run backend:dev` (with nodemon)
+
+**Legacy commands (if needed):**
+- Frontend: `cd frontend && npm run dev`
+- Backend: `cd backend && node server.js`

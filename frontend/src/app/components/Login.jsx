@@ -38,7 +38,7 @@ function Login() {
   };
 
   return (
-    <Card style={{ padding: '2rem', maxWidth: '400px', margin: '3rem auto' }}>
+    <Card sx={{ padding: '2rem', maxWidth: '400px', margin: '3rem auto', bgcolor: 'background.paper', boxShadow: 3 }}>
       <Typography variant="h5" gutterBottom>
         Welcome Back
       </Typography>

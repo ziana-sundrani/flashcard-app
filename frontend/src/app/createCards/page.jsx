@@ -51,7 +51,7 @@ export default function CreateCards() {
   }
 
 return (
-  <Container sx={{p:10, bgcolor: 'secondary', justifyContent: 'space-between' }}>
+  <Container sx={{p:10, bgcolor: 'background.default', minHeight: '100vh', justifyContent: 'space-between' }}>
        <Navbar />
        {/* Title and Description Row */}
        <Container sx={{display: 'flex', flexDirection: 'column', gap: 1, mb: 3}}>

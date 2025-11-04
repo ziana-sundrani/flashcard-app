@@ -23,10 +23,17 @@ function CreateCard({count, term = '', definition = '', onSaveCard, onDeleteCard
     <Box sx={{ 
       width: '100%', 
       p: 2, 
-      border: '1px solid #ccc', 
+      border: '2px solid',
+      borderColor: isSaved ? 'primary.light' : '#ffffff',
       borderRadius: 2, 
       mb: 2,
-      backgroundColor: isSaved ? '#f8f9fa' : '#ffffff'
+      backgroundColor: isSaved ? 'primary.50' : 'background.paper',
+      boxShadow: '0 2px 4px rgba(25, 118, 210, 0.1)',
+      transition: 'all 0.2s',
+      '&:hover': {
+        boxShadow: '0 4px 8px rgba(25, 118, 210, 0.15)',
+        transform: 'translateY(-2px)'
+      }
     }}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Typography variant="h6" component="h3">
@@ -56,7 +63,7 @@ function CreateCard({count, term = '', definition = '', onSaveCard, onDeleteCard
           onChange={(e) => setNewTerm(e.target.value)}
           margin="normal"
           disabled={isSaved}
-          sx={isSaved ? { backgroundColor: '#f5f5f5' } : {}}
+          sx={isSaved ? { backgroundColor: 'primary.50' } : {}}
         />
         <TextField
           fullWidth
@@ -66,7 +73,7 @@ function CreateCard({count, term = '', definition = '', onSaveCard, onDeleteCard
           onChange={(e) => setNewDefinition(e.target.value)}
           margin="normal"
           disabled={isSaved}
-          sx={isSaved ? { backgroundColor: '#f5f5f5' } : {}}
+          sx={isSaved ? { backgroundColor: 'primary.50' } : {}}
         />
       </Box>
     </Box>

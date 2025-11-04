@@ -21,13 +21,14 @@ function Flashcard({term, definition}) {
         justifyContent: 'center',
         transition: 'transform 0.6s, box-shadow 0.3s',
         transformStyle: 'preserve-3d',
-        boxShadow: 3,
+        boxShadow: '0 4px 12px rgba(25, 118, 210, 0.15)',
         '&:hover': {
-          boxShadow: 6,
-          transform: 'translateY(-2px)'
+          boxShadow: '0 8px 24px rgba(25, 118, 210, 0.25)',
+          transform: 'translateY(-4px)'
         },
-        border: '1px solid',
-        borderColor: flipped ? 'primary.main' : 'grey.300'
+        border: '2px solid',
+        borderColor: flipped ? 'primary.main' : 'grey.300',
+        bgcolor: flipped ? 'primary.50' : 'white'
       }}
     >
       <CardContent sx={{ 

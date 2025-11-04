@@ -95,7 +95,7 @@ function NavBar() {
 
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0}}>
-                <Avatar sx={{objectFit: "contain", border: "2px solid rgb(0, 0, 0)"  }}>
+                <Avatar sx={{objectFit: "contain", border: "2px solid white", bgcolor: 'secondary.main'  }}>
                   {initial}
                 </Avatar>
               </IconButton>

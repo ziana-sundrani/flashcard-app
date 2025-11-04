@@ -145,7 +145,6 @@ app.get('/api/Decks/:id', async (req, res) => {
 
 app.post('/api/Decks', async (req, res) => {
   try {
-    console.log('Received data:', req.body);
     const newDeck = new Deck(req.body);
     const savedDeck = await newDeck.save();
     console.log('Saved deck:', savedDeck);
@@ -154,6 +153,35 @@ app.post('/api/Decks', async (req, res) => {
     console.error('Error creating deck:', error);
     res.status(500).json({ error: 'Failed to create deck' });
   }
+});
+
+app.put('/api/Decks/:id', async (req, res) => {
+    try {
+        console.log('PUT /api/Decks/:id called with id:', req.params.id);
+        const { name, description, cards } = req.body;
+        const updateData = {};
+        
+        if (name !== undefined) updateData.name = name;
+        if (description !== undefined) updateData.description = description;
+        if (cards !== undefined) updateData.cards = cards;
+        
+        console.log('Updating deck with data:', updateData);
+        
+        const deck = await Deck.findByIdAndUpdate(
+            req.params.id,
+            updateData,
+            { new: true, runValidators: true }
+        );
+        if (!deck) {
+            console.log('Deck not found with id:', req.params.id);
+            return res.status(404).json({ error: 'Deck not found' });
+        }
+        console.log('Deck updated successfully:', deck._id);
+        res.json(deck);
+    } catch (error) {
+        console.error('Error updating deck:', error);
+        res.status(500).json({ error: 'Failed to update deck' });
+    }
 });
 
 app.delete('/api/Decks/:id', async (req, res) => {

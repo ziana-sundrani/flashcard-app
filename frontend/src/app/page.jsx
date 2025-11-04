@@ -76,7 +76,7 @@ export default function Homepage() {
   }
 
   return (
-    <Container sx={{p: 4, bgcolor: 'secondary'}}>
+    <Container sx={{p: 4, bgcolor: 'background.default', minHeight: '100vh'}}>
       <Navbar />
       
       {/* Header Section */}

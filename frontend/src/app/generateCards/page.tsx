@@ -81,7 +81,7 @@ export default function GenerateCards() {
     };
 
     return (
-        <Container sx={{p:10, bgcolor: 'secondary', justifyContent: 'space-between' }}>
+        <Container sx={{p:10, bgcolor: 'background.default', minHeight: '100vh', justifyContent: 'space-between' }}>
             <Navbar />
             {!submitted && (
                 <Box sx={{ textAlign: 'center', mt: 4 }}>
